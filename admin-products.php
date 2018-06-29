@@ -52,7 +52,9 @@
 		$products->setData($_POST);
 		$products->save();
 		//$products->setPhoto($_FILES["file"]);
-		if($_FILES["file"]["name"] !== "") $products->setPhoto($_FILES["file"]);
+		if($_FILES["file"]["name"] !== "") {
+			$products->setPhoto($_FILES["file"]);
+		}
 
 		header("Location: /admin/products");
 		exit;

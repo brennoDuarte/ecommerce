@@ -49,8 +49,12 @@ class Products extends Model{
 	}
 
 	public function checkPhoto(){
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."site".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."productsPhotos".$this->getidproduct()."jpg")) {
-			$url = "/res/site/img/productsPhotos/" . $this->getidproduct() . ".jpg";
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR.
+			"res".DIRECTORY_SEPARATOR.
+			"site".DIRECTORY_SEPARATOR.
+			"img".DIRECTORY_SEPARATOR.
+			"products".$this->getidproduct().".jpg")) {
+			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
 		} else {
 			$url = "/res/site/img/product.jpg";
 		}
@@ -80,11 +84,19 @@ class Products extends Model{
 				break;
 
 			case 'png':
-				$image = imagecreatefrompng($file["tmp_name"]);
+				#$image = imagecreatefrompng($file["tmp_name"]);
+				$image = imagecreatefrompng($file['tmp_name']);
+			    $new_image = imagecreatetruecolor(imagesx($image), imagesy($image));
+			    $white = imagecolorallocate($new_image, 255, 255, 255);
+			    imagefill($new_image, 0, 0, $white);
+			    imagealphablending($new_image, true);
+			    imagecopy($new_image, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+			    imagedestroy($image);
+			    $image = $new_image;
 				break;
 		}
 
-		$dist = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."site".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."productsPhotos".$this->getidproduct()."jpg";
+		$dist = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."site".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."products".$this->getidproduct().".jpg";
 		
 		imagejpeg($image, $dist);
 		imagedestroy($image);
