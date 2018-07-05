@@ -1,6 +1,8 @@
 <?php
 	use \Hcode\Page;
 	use \Hcode\Model\Products;
+	use \Hcode\Model\User;
+	use \Hcode\Model\Category;
 
 	$app->get('/', function() {
 	    $products = Products::listAll();
@@ -20,7 +22,7 @@
 		$page = new Page();
 		$page->setTpl("category", [
 			"category"=>$category->getValues(),
-			"products"=>[]
+			"products"=>Products::checkList($category->getProducts())
 		]);
 	});
 ?>

@@ -89,7 +89,7 @@
 
 		$category->addProduct($product);
 
-		header("Location: /admin/categories/".$idcategory."/product");
+		header("Location: /admin/categories/".$idcategory."/products");
 		exit;
 	});
 
@@ -103,7 +103,7 @@
 
 		$category->removeProduct($product);
 
-		header("Location: /admin/categories/".$idcategory."/product");
+		header("Location: /admin/categories/".$idcategory."/products");
 		exit;
 	});
 ?>

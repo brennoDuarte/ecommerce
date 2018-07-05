@@ -84,7 +84,7 @@ class Category extends Model{
 		}
 	}
 
-	public function addProduct(Product $product){
+	public function addProduct(Products $product){
 		$sql = new Sql();
 
 		$sql->query("INSERT INTO tb_categoriesproducts (idcategory, idproduct) VALUES (:idcategory, :idproduct);",[
@@ -93,7 +93,7 @@ class Category extends Model{
 			]);
 	}
 
-	public function removeProduct(Product $product){
+	public function removeProduct(Products $product){
 		$sql = new Sql();
 
 		$sql->query("DELETE FROM tb_categoriesproducts WHERE idcategory = :idcategory AND idproduct = :idproduct;",[
