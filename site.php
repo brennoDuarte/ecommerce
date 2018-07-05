@@ -37,4 +37,15 @@
 			"pages"=>$pages
 		]);
 	});
+
+	$app->get("/products/:desurl", function($desurl){
+		$products = new Products();
+		$products->getFromURL($desurl);
+
+		$page = new Page();
+		$page->setTpl("product-detail", [
+			"product"=>$products->getValues(),
+			"categories"=>$products->getCategories()
+		]);
+	})
 ?>
