@@ -125,7 +125,13 @@
 		$page= new Page();
 
 		$page->setTpl("login", [
-			"error"=>User::getError()
+			"error"=>User::getError(),
+			"errorRegister"=>User::getErrorRegister(),
+			"registerValues"=>(isset($_SESSION["registerValues"])) ? $_SESSION["registerValues"] : [
+				"name"=> "", 
+				"email"=> "", 
+				"phone"=> ""
+			]
 		]);
 	});
 
@@ -147,12 +153,32 @@
 		exit;
 	});
 
-
-/*
 	$app->post("/register", function(){
-		if (isset($_POST["name"]) && $_POST["name"] == ""){
-			User::setRegisterError("Preencha o seu nome.");
+		$_SESSION["registerValues"] = $_POST;
+
+		if (!isset($_POST["name"]) || $_POST["name"] == ""){
+			User::setErrorRegister("Preencha o seu nome.");
 			
+			header("Location: /login");
+			exit;
+		}
+
+		if (!isset($_POST["email"]) || $_POST["email"] == ""){
+			User::setErrorRegister("Preencha o seu email.");
+			
+			header("Location: /login");
+			exit;
+		}
+
+		if (!isset($_POST["password"]) || $_POST["password"] == ""){
+			User::setErrorRegister("Preencha sua senha.");
+			
+			header("Location: /login");
+			exit;
+		}
+
+		if (User::checkLoginExist($_POST["email"] === true)) {
+			User::setErrorRegister("Este e-mail já está sendo usado");
 			header("Location: /login");
 			exit;
 		}
@@ -163,7 +189,7 @@
 			"deslogin"=>$_POST["email"],
 			"desperson"=>$_POST["name"],
 			"desemail"=>$_POST["email"],
-			"despassword"=$_POST["password"],
+			"despassword"=>$_POST["password"],
 			"nrphone"=>$_POST["phone"]
 		]);
 
@@ -173,6 +199,4 @@
 		header("Location: /checkout");
 		exit;
 	});
-
-	*/
 ?>
