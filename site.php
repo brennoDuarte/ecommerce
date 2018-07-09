@@ -4,6 +4,7 @@
 	use \Hcode\Model\User;
 	use \Hcode\Model\Category;
 	use \Hcode\Model\Cart;
+	use \Hcode\Model\Address;
 
 	$app->get('/', function() {
 	    $products = Products::listAll();
@@ -105,4 +106,73 @@
 		header("Location: /cart");
 		exit;
 	});
+
+	$app->get("/checkout", function(){
+		User::verifyLogin(false);
+
+		$cart = Cart::getFromSession();
+		$address = new Address();
+		$page= new Page();
+
+		$page->setTpl("checkout", [
+			"cart"=>$cart->getValues(),
+			"address"=>$address->getValues()
+		]);
+	});
+
+	$app->get("/login", function(){
+
+		$page= new Page();
+
+		$page->setTpl("login", [
+			"error"=>User::getError()
+		]);
+	});
+
+	$app->post("/login", function(){
+		try {
+			User::login($_POST["login"], $_POST["password"]);
+		} catch (Exception $e) {
+			User::setError($e->getMessage());
+		}
+
+		header("Location: /checkout");
+		exit;
+	});
+
+	$app->get("/logout", function(){
+		User::logout();
+
+		header("Location: /login");
+		exit;
+	});
+
+
+/*
+	$app->post("/register", function(){
+		if (isset($_POST["name"]) && $_POST["name"] == ""){
+			User::setRegisterError("Preencha o seu nome.");
+			
+			header("Location: /login");
+			exit;
+		}
+
+		$user = new User();
+		$user->setData([
+			"inadmin"=>0,
+			"deslogin"=>$_POST["email"],
+			"desperson"=>$_POST["name"],
+			"desemail"=>$_POST["email"],
+			"despassword"=$_POST["password"],
+			"nrphone"=>$_POST["phone"]
+		]);
+
+		$user->save();
+
+		User::login($_POST["email"], $_POST["password"]);
+		header("Location: /checkout");
+		exit;
+	});
+
+	*/
 ?>
