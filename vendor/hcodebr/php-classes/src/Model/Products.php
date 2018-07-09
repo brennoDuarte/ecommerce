@@ -64,10 +64,12 @@ class Products extends Model{
 			"res".DIRECTORY_SEPARATOR.
 			"site".DIRECTORY_SEPARATOR.
 			"img".DIRECTORY_SEPARATOR.
-			"products".$this->getidproduct().".jpg")) {
-			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
+			"fotos".$this->getidproduct().".jpg")) {
+
+			$url = "/res/site/img/fotos/" . $this->getidproduct() . ".jpg";
+
 		} else {
-			$url = "/res/site/img/products/product.jpg";
+			$url = "/res/site/img/fotos/product.jpg";
 		}
 
 		return $this->setdesphoto($url);
@@ -96,18 +98,15 @@ class Products extends Model{
 
 			case 'png':
 				$image = imagecreatefrompng($file["tmp_name"]);
-				/*$image = imagecreatefrompng($file['tmp_name']);
-			    $new_image = imagecreatetruecolor(imagesx($image), imagesy($image));
-			    $white = imagecolorallocate($new_image, 255, 255, 255);
-			    imagefill($new_image, 0, 0, $white);
-			    imagealphablending($new_image, true);
-			    imagecopy($new_image, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
-			    imagedestroy($image);
-			    $image = $new_image;*/
 				break;
 		}
 
-		$dist = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."res".DIRECTORY_SEPARATOR."site".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."products".$this->getidproduct().".jpg";
+		$dist = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR.
+		"res".DIRECTORY_SEPARATOR.
+		"site".DIRECTORY_SEPARATOR.
+		"img".DIRECTORY_SEPARATOR.
+		"fotos".DIRECTORY_SEPARATOR.
+		$this->getidproduct().".jpg";
 		
 		imagejpeg($image, $dist);
 		imagedestroy($image);
