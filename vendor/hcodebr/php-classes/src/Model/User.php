@@ -10,6 +10,7 @@ class User extends Model{
 	const SECRET = "HcodePhp7_Secret";
 	const ERROR = "UserError";
 	const ERROR_REGISTER = "UserErrorRegister";
+	const SUCCESS = "UserSuccess";
 
 	public static function getFromSession(){
 		if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]["iduser"] > 0) {
@@ -43,7 +44,7 @@ class User extends Model{
 
 	public static function login($login, $password){
 		$sql = new Sql();
-		$results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :LOGIN",array(
+		$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b ON a.idperson = b.idperson WHERE a.desperson = :LOGIN",array(
 			":LOGIN"=>$login
 		));
 
@@ -228,6 +229,20 @@ class User extends Model{
 
 	public static function clearError(){
 		$_SESSION[User::ERROR] = NULL;
+	}
+
+	public static function setSuccess($msg){
+		$_SESSION[User::SUCCESS] = $msg;
+	}
+
+	public static function getSuccess(){
+		$msg = (isset($_SESSION[User::SUCCESS])) && $_SESSION[User::SUCCESS] ? $_SESSION[User::SUCCESS] : "";
+		User::clearError();
+		return $msg;
+	}
+
+	public static function clearSuccess(){
+		$_SESSION[User::SUCCESS] = NULL;
 	}
 
 	public static function setErrorRegister($msg){
