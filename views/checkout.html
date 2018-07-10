@@ -31,6 +31,7 @@
 											<label class="" for="billing_address_1">Cep <abbr title="required" class="required">*</abbr>
 											</label>
                                             <input type="text" value="{$cart.deszipcode}" placeholder="00000-000" id="billing_address_1" name="zipcode" class="input-text ">
+
                                             <input type="submit" value="Atualizar CEP" id="place_order" class="button alt" formaction="/checkout" formmethod="get">
 										</p>
 										<p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
@@ -84,19 +85,19 @@
 												<tfoot>
 													<tr class="cart-subtotal">
 														<th>Subtotal</th>
-														<td><span class="amount">R${function="formatPrice($value.vlsubtotal)"}</span>
+														<td><span class="amount">R${function="formatPrice($cart.vlsubtotal)"}</span>
 														</td>
 													</tr>
 													<tr class="shipping">
 														<th>Frete</th>
 														<td>
-															R${function="formatPrice($value.vlfreight)"}
+															R${function="formatPrice($cart.vlfreight)"}
 															<input type="hidden" class="shipping_method" value="free_shipping" id="shipping_method_0" data-index="0" name="shipping_method[0]">
 														</td>
 													</tr>
 													<tr class="order-total">
 														<th>Total do Pedido</th>
-														<td><strong><span class="amount">R${function="formatPrice($value.vltotal)"}</span></strong> </td>
+														<td><strong><span class="amount">R${function="formatPrice($cart.vltotal)"}</span></strong> </td>
 													</tr>
 												</tfoot>
 											</table>
