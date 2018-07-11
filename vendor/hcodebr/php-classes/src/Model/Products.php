@@ -64,7 +64,8 @@ class Products extends Model{
 			"res".DIRECTORY_SEPARATOR.
 			"site".DIRECTORY_SEPARATOR.
 			"img".DIRECTORY_SEPARATOR.
-			"fotos".$this->getidproduct().".jpg")) {
+			"fotos".DIRECTORY_SEPARATOR.
+			$this->getidproduct().".jpg")) {
 
 			$url = "/res/site/img/fotos/" . $this->getidproduct() . ".jpg";
 

@@ -15,6 +15,13 @@ $app = new Slim();
 $app->config('debug', true);
 
 require_once("site.php");
+require_once("site-login.php");
+require_once("site-categories.php");
+require_once("site-forgot.php");
+require_once("site-cart.php");
+require_once("site-profile.php");
+require_once("site-checkout.php");
+require_once("site-order.php");
 require_once("functions.php");
 require_once("admin.php");
 require_once("admin-users.php");

@@ -14,12 +14,12 @@ class Order extends Model {
 		$sql = new Sql();
 
 		$results = $sql->select("CALL sp_orders_save(:idorder, :idcart, :iduser, :idstatus, :idaddress, :vltotal)", [
-			":idorder"=>$this->geiidorder(),
-			":idcart"=>$this->geiidcart(),
-			":iduser"=>$this->geiiduser(),
-			":idstatus"=>$this->geiidstatus(),
-			":idaddress"=>$this->geiidaddress(),
-			":vltotal"=>$this->geivltotal(),
+			":idorder"=>$this->getidorder(),
+			":idcart"=>$this->getidcart(),
+			":iduser"=>$this->getiduser(),
+			":idstatus"=>$this->getidstatus(),
+			":idaddress"=>$this->getidaddress(),
+			":vltotal"=>$this->getvltotal(),
 		]);
 
 		if (count($results) > 0) {
